@@ -10,6 +10,7 @@ __This project is huge WIP__
 
 ## Features
 - Customizable mutlithreading
+- HTTPS support
 
 ## Todo
  - Dynamic tokens (E.g {RANDOM_STRING}, {RANDOM_INT})
@@ -17,6 +18,5 @@ __This project is huge WIP__
  - All HTTP methods
  - More advanced ratelimiting
  - Custom headers
- - HTTPS
  - Pretty display of attack stats
  - ???
