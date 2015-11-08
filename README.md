@@ -10,7 +10,7 @@ __This project is huge WIP__
 
 ## Features
 - Customizable mutlithreading
-- HTTPS support
+- HTTPS support __(Note: Certificates aren't verified)__
 
 ## Todo
  - Dynamic tokens (E.g {RANDOM_STRING}, {RANDOM_INT})
