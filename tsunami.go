@@ -37,7 +37,7 @@ func main() {
 		threadCounter += 1
 	}
 
-	//Wait for workers to finish before return exit
+	//Wait for workers to finish before exit
 	for threadDoneCounter < *threads {
 		<-threadExit
 	}
