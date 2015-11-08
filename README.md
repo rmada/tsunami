@@ -8,10 +8,24 @@ __This project is huge WIP__
 ./tsunami http://example.com --threads 100
 ```
 
+## Help
+```bash
+./tsunami --help
+```
+
+## Quick install
+```bash
+git clone https://github.com/ammario/tsunami
+cd tsunami
+export GOPATH=`pwd`
+go get ./...
+go build
+```
+
 ## Features
 - Live attack stats
 - Customizable mutlithreading
-- HTTPS support __(Note: Certificates aren't verified)__
+- HTTPS support __(Note: Certificates aren't verified for performance)__
 
 ## Todo
  - Dynamic tokens (E.g {RANDOM_STRING}, {RANDOM_INT})
