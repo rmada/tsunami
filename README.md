@@ -4,7 +4,7 @@ An advanced HTTP flooder written in Golang
 __This project is huge WIP__
 
 ## Basic Usage
-```
+```bash
 ./tsunami http://example.com --threads 100
 ```
 
