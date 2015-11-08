@@ -31,7 +31,7 @@ func main() {
 	}
 
 	if !((u.Scheme == "http") || (u.Scheme == "https")) {
-		log.Fatal("URL scheme unsupported")
+		log.Fatal(fmt.Sprintf("URL scheme (%s) unsupported", u.Scheme))
 	}
 
 	//Reflect arguments
