@@ -45,7 +45,8 @@ func main() {
 	}
 
 	//Instantiate stuff
-	exitChan := make(chan int)
+	exitChan = make(chan int)
+	requestChan = make(chan bool)
 	workers := map[int]*floodWorker{}
 
 	//Start flood workers
@@ -63,8 +64,6 @@ func main() {
 		workers[workerCounter].Start()
 		workerCounter += 1
 	}
-
-	requestChan = make(chan bool)
 
 	//Misc workers
 	go MaxRequestEnforcer()
