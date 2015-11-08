@@ -9,6 +9,7 @@ __This project is huge WIP__
 ```
 
 ## Features
+- Live attack stats
 - Customizable mutlithreading
 - HTTPS support __(Note: Certificates aren't verified)__
 
@@ -16,7 +17,6 @@ __This project is huge WIP__
  - Dynamic tokens (E.g {RANDOM_STRING}, {RANDOM_INT})
  - User Agent randomization
  - All HTTP methods
- - More advanced ratelimiting
  - Custom headers
  - Pretty display of attack stats
  - ???

@@ -9,13 +9,13 @@ import (
 
 //Command line args
 var (
-	verbose     = kingpin.Flag("verbose", "Verbose mode.").Short('v').Bool()
-	maxWorkers  = kingpin.Flag("workers", "Amount of concurrent attacking workers (threads).").Default("8").Short('w').Int()
-	maxRequests = kingpin.Flag("max-requests", "Amount requests to send before exiting.").Default("-1").Short('m').Int()
-	target      = kingpin.Arg("url", "Target URL e.g http://google.com").Required().String()
+	verbose         = kingpin.Flag("verbose", "Verbose mode.").Short('v').Bool()
+	maxWorkers      = kingpin.Flag("workers", "Amount of concurrent attacking workers (threads).").Default("8").Short('w').Int()
+	maxRequests     = kingpin.Flag("max-requests", "Amount requests to send before exiting.").Default("-1").Short('m').Int()
+	displayInterval = kingpin.Flag("interval", "Interval in milliseconds between display of attack stats.").Default("1000").Short('i').Int()
+	target          = kingpin.Arg("url", "Target URL e.g http://google.com").Required().String()
 )
 
-//Global attack stats
 var (
 	requestCounter    int
 	workerCounter     int
@@ -66,6 +66,7 @@ func main() {
 	}
 
 	//Misc workers
+	go Outputter()
 	go MaxRequestEnforcer()
 	WorkerOverseer()
 }
