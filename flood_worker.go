@@ -7,14 +7,16 @@ import (
 )
 
 type floodWorker struct {
-	exitChan chan int
-	id       int
-	target   url.URL
+	dead           bool
+	exitChan       chan int
+	id             int
+	target         url.URL
+	RequestCounter int
 }
 
 func (fw *floodWorker) Start() {
-	defer fw.End()
 	go func() {
+		defer fw.Kill()
 		//Skip certificate verify for performance
 		secureTransport := &http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
@@ -24,12 +26,17 @@ func (fw *floodWorker) Start() {
 			client = &http.Client{Transport: secureTransport}
 		}
 		for {
+			if fw.dead {
+				return
+			}
 			client.Get(fw.target.String())
-			totalRequestsSent += 1
+			fw.RequestCounter += 1 //Worker specific counter
+			requestChan <- true
 		}
 	}()
 }
 
-func (fw *floodWorker) End() {
+func (fw *floodWorker) Kill() {
+	fw.dead = true
 	fw.exitChan <- fw.id
 }
