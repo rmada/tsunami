@@ -26,6 +26,8 @@ var (
 	exitChan          chan int
 	requestChan       chan bool
 	workers           map[int]*floodWorker
+	tokenizedTarget tokenizedString
+	tokenizedBody tokenizedString
 )
 
 func main() {
@@ -40,6 +42,10 @@ func main() {
 	if !((u.Scheme == "http") || (u.Scheme == "https")) {
 		log.Fatal(fmt.Sprintf("URL scheme (%s) unsupported", u.Scheme))
 	}
+
+	//URL and body may contain dynamic tokens
+	tokenizedTarget = tokenizedString{base: *target}
+	tokenizedBody = tokenizedString{base: *body}
 
 	//Reflect arguments
 	if *verbose {
