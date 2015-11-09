@@ -13,7 +13,7 @@ __This project is huge WIP__
 ./tsunami --help
 ```
 
-## Quick install
+## Quick Install
 ```bash
 git clone https://github.com/ammario/tsunami
 cd tsunami
@@ -40,7 +40,5 @@ go build
 ## Todo
  - Dynamic tokens (E.g {RANDOM_STRING}, {RANDOM_INT})
  - User Agent randomization
- - All HTTP methods
  - Custom headers
- - Pretty display of attack stats
  - ???
