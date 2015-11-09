@@ -24,6 +24,7 @@ go build
 
 ## Features
 - Live attack stats
+- Support for all attack methods (GET, POST, PUT, etc.)
 - Customizable mutlithreading
 - HTTPS support __(Note: Certificates aren't verified for performance)__
 
