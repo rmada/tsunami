@@ -2,6 +2,7 @@ package main
 
 import (
 	"crypto/tls"
+	"io"
 	"net/http"
 	"net/url"
 )
@@ -29,7 +30,9 @@ func (fw *floodWorker) Start() {
 			if fw.dead {
 				return
 			}
-			client.Get(fw.target.String())
+			var body io.Reader;
+			req,_ := http.NewRequest("GET", fw.target.String(), body)
+			client.Do(req)
 			fw.RequestCounter += 1 //Worker specific counter
 			requestChan <- true
 		}
