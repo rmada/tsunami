@@ -1,7 +1,7 @@
 # Tsunami
 An advanced HTTP flooder written in Golang
 
-__This project is a huge WIP__
+__This project is huge WIP__
 
 ## Basic Usage
 ```bash
@@ -13,7 +13,7 @@ __This project is a huge WIP__
 ./tsunami --help
 ```
 
-## Quick Install
+## Quick install
 ```bash
 git clone https://github.com/ammario/tsunami
 cd tsunami
@@ -24,7 +24,6 @@ go build
 
 ## Features
 - Live attack stats
-- Support for all attack methods (GET, POST, PUT, etc.)
 - Customizable mutlithreading
 - HTTPS support __(Note: Certificates aren't verified for performance)__
 
@@ -33,7 +32,7 @@ go build
 ```bash
 ./tsunami -w 2 "https://github.com/login" POST "username=Ammar&password=g1thuB123"
 ```
-## High volume HEAD flood lasting for 10 minutes
+### High volume HEAD flood lasting for 10 minutes
 ```bash
 ./tsunami -w 100 -s 600 "https://github.com/" HEAD
 ```
@@ -41,5 +40,7 @@ go build
 ## Todo
  - Dynamic tokens (E.g {RANDOM_STRING}, {RANDOM_INT})
  - User Agent randomization
+ - All HTTP methods
  - Custom headers
+ - Pretty display of attack stats
  - ???
