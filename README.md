@@ -29,11 +29,11 @@ go build
 ## Examples
 ### Low volume POST flood lasting forever
 ```bash
-./tsunami -w 2 "https://github.com/login" POST "username=Ammar&password=g1thuB123"
+./tsunami -w 2 "https://fbi.gov/login" POST "username=Ammar&password=g1thuB123"
 ```
 ### High volume HEAD flood lasting for 10 minutes
 ```bash
-./tsunami -w 100 -s 600 "https://github.com/" HEAD
+./tsunami -w 100 -s 600 "https://cia.gov/" HEAD
 ```
 
 ## Todo
