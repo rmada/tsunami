@@ -1,7 +1,7 @@
 # Tsunami
 An advanced HTTP flooder written in Golang
 
-__This project is huge WIP__
+__This project is a huge WIP__
 
 ## Basic Usage
 ```bash
