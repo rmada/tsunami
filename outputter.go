@@ -12,8 +12,8 @@ func Outputter() {
 	for {
 		t := time.Now()
 		requestDifference := requestCounter - lastDisplayRequests
-		timeDifference := float64(t.UnixNano() - lastOutputTime.UnixNano()) / 1000000000
-		if(timeDifference == 0) {
+		timeDifference := float64(t.UnixNano()-lastOutputTime.UnixNano()) / 1000000000
+		if timeDifference == 0 {
 			timeDifference = 1
 		}
 		reqs := float64(requestDifference) / timeDifference
