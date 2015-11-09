@@ -27,6 +27,16 @@ go build
 - Customizable mutlithreading
 - HTTPS support __(Note: Certificates aren't verified for performance)__
 
+## Examples
+### Low volume POST flood lasting forever
+```bash
+./tsunami -w 2 "https://github.com/login" POST "username=Ammar&password=g1thuB123"
+```
+## High volume HEAD flood lasting for 10 minutes
+```bash
+./tsunami -w 100 -s 600 "https://github.com/" HEAD
+```
+
 ## Todo
  - Dynamic tokens (E.g {RANDOM_STRING}, {RANDOM_INT})
  - User Agent randomization

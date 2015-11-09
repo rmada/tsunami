@@ -2,7 +2,7 @@ package main
 
 import (
 	"crypto/tls"
-	"io"
+	"bytes"
 	"net/http"
 	"net/url"
 )
@@ -26,12 +26,19 @@ func (fw *floodWorker) Start() {
 			}
 			client = &http.Client{Transport: secureTransport}
 		}
+
 		for {
 			if fw.dead {
 				return
 			}
-			var body io.Reader;
-			req,_ := http.NewRequest("GET", fw.target.String(), body)
+
+			//Client logic inside loop for future dynamic tokens implementation
+			body := []byte(*body)
+			req,_ := http.NewRequest(*method, fw.target.String(), bytes.NewBuffer(body))
+			if(*method == "POST") {
+				req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+			}
+
 			client.Do(req)
 			fw.RequestCounter += 1 //Worker specific counter
 			requestChan <- true
