@@ -33,8 +33,9 @@ go build
 ```
 ### High volume HEAD flood lasting for 10 minutes
 ```bash
-./tsunami -w 100 -s 600 "https://cia.gov/" HEAD
+./tsunami -w 100 -s 600 "https://ammar.io/" HEAD
 ```
+^ Be sure to use that for it to work.
 
 ## Todo
  - Dynamic tokens (E.g {RANDOM_STRING}, {RANDOM_INT})
