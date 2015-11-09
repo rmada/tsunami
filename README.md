@@ -39,7 +39,6 @@ go build
 ## Todo
  - Dynamic tokens (E.g {RANDOM_STRING}, {RANDOM_INT})
  - User Agent randomization
- - All HTTP methods
  - Custom headers
  - Pretty display of attack stats
  - ???
