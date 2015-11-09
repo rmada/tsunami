@@ -18,12 +18,12 @@ type floodWorker struct {
 func (fw *floodWorker) Start() {
 	go func() {
 		defer fw.Kill()
-		//Skip certificate verify for performance
-		secureTransport := &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		}
 		client := &http.Client{}
 		if fw.target.Scheme == "https" {
+			//Skip certificate verify for performance
+			secureTransport := &http.Transport{
+				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+			}
 			client = &http.Client{Transport: secureTransport}
 		}
 		for {
