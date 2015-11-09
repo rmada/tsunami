@@ -1,5 +1,9 @@
 # Tsunami
-An advanced HTTP flooder written in Golang
+Tsunami is an advanced HTTP flooder written in Golang. It's currently implemented features include:
+
+- Live attack stats
+- Customizable mutlithreading
+- HTTPS support __(Note: Certificates aren't verified for performance)__
 
 __This project is huge WIP__
 
@@ -21,11 +25,6 @@ export GOPATH=`pwd`
 go get ./...
 go build
 ```
-
-## Features
-- Live attack stats
-- Customizable mutlithreading
-- HTTPS support __(Note: Certificates aren't verified for performance)__
 
 ## Examples
 ### Low volume POST flood lasting forever
