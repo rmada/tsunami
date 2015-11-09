@@ -16,7 +16,7 @@ var (
 	displayInterval = kingpin.Flag("interval", "Interval in milliseconds between display of attack stats.").Default("1000").Short('i').Int()
 	target          = kingpin.Arg("url", "Target URL e.g http://google.com").Required().String()
 	method          = kingpin.Arg("method", "HTTP method used for flood.").Default("GET").String()
-	body          = kingpin.Arg("body", "Body of request, useful for POST/PUT.").Default("").String()
+	body            = kingpin.Arg("body", "Body of request, useful for POST/PUT.").Default("").String()
 )
 
 var (

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"crypto/tls"
 	"bytes"
+	"crypto/tls"
 	"net/http"
 	"net/url"
 )
@@ -34,8 +34,8 @@ func (fw *floodWorker) Start() {
 
 			//Client logic inside loop for future dynamic tokens implementation
 			body := []byte(*body)
-			req,_ := http.NewRequest(*method, fw.target.String(), bytes.NewBuffer(body))
-			if(*method == "POST") {
+			req, _ := http.NewRequest(*method, fw.target.String(), bytes.NewBuffer(body))
+			if *method == "POST" {
 				req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 			}
 
